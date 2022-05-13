@@ -1,5 +1,6 @@
-from docReaders import read_csv, read_json, read_xml
-from TSVformatter import TSVformatter, TSVconverter, TSVconverterSortBy
+from readers import read_csv, read_json, read_xml
+from tsv_formatter import format_data_tsv, convert_data_into_tsv
+from itertools import zip_longest
 from constants import DATA_PATH
 
 
@@ -8,13 +9,9 @@ data2 = read_csv(f'{DATA_PATH}csv_data_2.csv')
 data3 = read_json(f'{DATA_PATH}json_data.json')
 data4 = read_xml(f'{DATA_PATH}xml_data.xml')
 
-dataSource = [data1, data2, data3, data4]
+data_inputs = [data1, data2, data3, data4]
+formated_data = format_data_tsv(data_inputs)
+headers = formated_data.keys()
+formated_data = list(zip_longest(*list(formated_data.values())))
 
-formatedData = TSVformatter(dataSource)
-
-headers = formatedData.keys()
-
-formatedData = list(zip(*list(formatedData.values())))
-
-TSVconverter(formatedData, headers)
-TSVconverterSortBy(formatedData, headers, 'D3')
+convert_data_into_tsv(formated_data, headers, "M10")
