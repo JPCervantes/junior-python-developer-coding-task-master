@@ -14,4 +14,4 @@ formated_data = format_data_tsv(data_inputs)
 headers = formated_data.keys()
 formated_data = list(zip_longest(*list(formated_data.values())))
 
-convert_data_into_tsv(formated_data, headers, "M10")
+convert_data_into_tsv(formated_data, headers, "M9")

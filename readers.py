@@ -50,38 +50,10 @@ def read_xml(input_data) -> dict:
     with the child atributes as keys and values per object as values"""
     tree = cElementTree.parse(input_data)
     root = tree.getroot()
-    xml_list = []
 
     xml_headers = [[c.attrib['name'] for c in child] for child in root]
     xml_values_list = [[c[0].text for c in child] for child in root]
     xml_dict_gen = {head: (row for row in xml_values_list[0][index])
                     for index, head in enumerate(xml_headers[0])}
-    # print("xml_headers: ", xml_headers)
-    # print("xml_values_list: ", xml_values_list)
-    # print("xml_dict_gen: ", xml_dict_gen)
-
-    # for k, v in xml_dict_gen.items():
-    #     print(f"k : {k} -> v: {list(v)}", v)
-
-    # json_dict_gen = {head: (row for row in json_matrix_trasposed[index])
-    # for index, head in enumerate(json_headers[0])}
-
-    for child in root:
-
-        xml_headers = []
-        new_row = []
-        for c in child:
-
-            if c.attrib['name'] not in xml_headers:
-                xml_headers.append(c.attrib['name'])
-
-            new_row.append(c[0].text)
-        xml_list.append(new_row)
-
-    xml_by_column = [*zip(*xml_list)]
-    result = {}
-
-    for i_index, head in enumerate(xml_headers):
-        result[head] = xml_by_column[i_index]
 
     return xml_dict_gen
